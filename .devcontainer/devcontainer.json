@@ -9,6 +9,6 @@
       
       "runArgs":["--net=host"],
 
-    "workspaceMount": "source=/c/Users/Jaime/source/repos/workspace,target=/root/workspace,type=bind",
-    "workspaceFolder" : "/root/workspace"
+    "workspaceMount": "source=/c/Users/Jaime/source/repos/course_335,target=/workspace,type=bind",
+    "workspaceFolder" : "/workspace"
 }
