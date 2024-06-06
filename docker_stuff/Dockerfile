@@ -6,11 +6,13 @@ SHELL [ "/bin/bash" , "-c" ]
 # RUN echo "LIBGL_ALWAYS_INDIRECT=0" >> ~/.bashrc
 RUN apt update
 # RUN apt-get install gcc
-RUN apt install vim -y
 
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y git
+
+RUN apt-get install g++ -y
+RUN apt install vim -y
 # RUN apt install -y python3.9 python3.9-dev
 # RUN sudo apt-get install net-tools
 
