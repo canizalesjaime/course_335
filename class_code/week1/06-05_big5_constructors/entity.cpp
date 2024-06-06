@@ -40,7 +40,7 @@ class Entity
         {
            cout<<"move constructor called"<<endl;
            id_ = other.id_;
-           data_ = other.data_;
+           data_ = move(other.data_);
            other.id_ ="";
            other.data_=vector<int>(0);
         }
@@ -48,14 +48,14 @@ class Entity
 
         Entity& operator=(Entity &&rhs) //move assignment operator
         {
-        cout<<"move assignment called"<<endl;
-        //std::swap(id_, rhs.id_);
-        //std::swap(data_, rhs.data_);
-        id_ = rhs.id_;
-        data_ = rhs.data_;
-        rhs.id_ ="";
-        rhs.data_=vector<int>(0);
-        return *this;
+            cout<<"move assignment called"<<endl;
+            //std::swap(id_, rhs.id_);
+            //std::swap(data_, rhs.data_);
+            id_ = rhs.id_;
+            data_ = move(rhs.data_);
+            rhs.id_ ="";
+            rhs.data_=vector<int>(0);
+            return *this;
         }
 
 
