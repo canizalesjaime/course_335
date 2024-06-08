@@ -37,6 +37,5 @@
 *.synctex.gz
 *.fdb_latexmk
 
-projects/
-exams/
-src/
+hidden/
+.vscode/

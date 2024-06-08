@@ -1,7 +1,7 @@
 # Steps for Docker:
 1. If image is not built , build it by running:
 ```
-cd docker_stuff
+cd .devcontainer
 docker build -t test_repo .
 ```      
 2. Run from directory to mount: 
