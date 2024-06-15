@@ -13,12 +13,14 @@ vector<int> RandomVec(int size, int range);
 
 int main()
 {
-    vector<int> vec({-2, 11, -4, 13, -5, -2 });
+    //vector<int> vec({-2, 11, -4, 13, -5, -2 });
     //vector<int> vec = RandomVec(11,100);
+    vector<int> vec({1, 2, -4, 1, 5, -10, 4, 1});
     for(const auto& i : vec)
         cout<<i<<" ";
     cout<<endl;
 
+    //cout<<"max subseq sum: "<<MaxSubSeqSumBruteForce(vec)<<endl;
     cout<<MaxSubSeqSumBruteForce(vec)<<" vs "
         <<MaxSubSeqSumBruteForceWorst(vec)<<" vs "
         <<MaxSubSeqSumLinear(vec)<<" vs "
@@ -45,18 +47,19 @@ vector<int> RandomVec(int size, int range)
 ///////////////////////////////////////////////////////////////////////////////
 int MaxSubSeqSumBruteForce(const vector<int> & vec) 
 {
-    int max = 0;
+    int max_sum = 0;
     for(int i = 0; i < vec.size(); i++)
     {
-        int sum=0;
+        int curr_sum=0;
         for(int j = i; j < vec.size(); j++)
         {    
-            sum = sum+vec[j];
-            if (sum > max) max = sum;
+            curr_sum += vec[j];
+            //if (curr_sum > max_sum) max_sum = curr_sum;
+            max_sum=max(curr_sum,max_sum);
         }
     }
 
-    return max;
+    return max_sum;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -101,8 +104,9 @@ int MaxSubSeqSumRec(const vector <int>& vec, int left, int right)
     if (left == right) // Base cases
         if (vec[left] > 0) return vec[left];
         else return 0;
+
     int center = (left + right)/2;
-    /* Recursion here */
+    // Recursion here 
     int max_left_sum = MaxSubSeqSumRec(vec, left , center);
     int max_right_sum = MaxSubSeqSumRec(vec, center + 1, right);
 

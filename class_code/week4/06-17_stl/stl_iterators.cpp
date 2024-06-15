@@ -120,7 +120,7 @@ void test_unordered_maps()
 
 int main()
 {
-   test_unordered_maps();
+   test_list();
 
    return 0;
 }
