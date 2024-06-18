@@ -1,4 +1,4 @@
-/*For more details on what was covered on 06.14.2023, you can visit: 
+/*For more details on what was covered on 06.17.2024, you can visit: 
 https://cplusplus.com/reference/stl/ and review information on vectors, list,
 and unordered_maps. In particular, review iterators for each template class,
 insert and erase for each template class, and the find function for unordered 
@@ -11,6 +11,7 @@ smallest value, and using the "?" ternary operator.*/
 #include<unordered_map>
 #include<limits>
 #include<algorithm>
+#include <time.h>
 
 using namespace std;
 
@@ -21,6 +22,7 @@ void test_vector()
     //iterators are pointers used in stl for traversing through data structures
     vector<int> vec({2,4,6,8,10,47,1,5});
     vector<int>::iterator itr;
+    //auto itr = vec.begin();
     for (itr = vec.begin(); itr != vec.end(); itr++)
         cout<<*itr<<" ";
     cout<<"printed with iterators"<<endl;
@@ -114,8 +116,16 @@ void test_list()
     cout<<endl;
 
     //splice
+    srand(time(0));
+    for(int i = 0; i < 5; i++) my_list2.insert(my_list2.end(),rand() % 200 - 100);
+    for(auto x : my_list2) cout<<x<<" "; 
+    cout<<endl;
     
-
+    my_list1.splice ( my_list1.begin(), my_list2);
+    for(auto x : my_list1) cout<<x<<" ";
+    cout<<endl;
+    for(auto x : my_list2) cout<<x<<" "; //empty now
+    cout<<endl;
 }
 
 
