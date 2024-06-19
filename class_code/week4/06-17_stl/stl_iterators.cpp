@@ -68,17 +68,24 @@ void test_list()
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
 
+    // cout<<"list 1: ";
+    list<double>::iterator it=my_list1.begin();
+    // for (it=my_list1.begin(); it!=my_list1.end(); ++it)
+    //     cout<<*it<<" ";
+    // cout<<endl; 
+
     // Accessing list elements
-    //cout<<my_list1[1]<<endl; //not allowed
+    //cout<<my_list1[3]<<endl; //not allowed
     int i = 0;
     for(auto x : my_list1)
     {
         if (i == 3) cout<<"Iterate through list: "<<x<<endl;
         i++;
-    } 
-    
-    list<double>::iterator it=my_list1.begin();
-    advance(it, 3);
+    }
+
+    it=my_list1.begin();
+    int find_pos = 3;
+    if (find_pos <= my_list1.size()) advance(it, find_pos);
     cout<<"Use advance function to access: "<<*it<<endl;
 
     // insert at index 2, the element 1.618
@@ -101,27 +108,29 @@ void test_list()
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
 
+    //merge
     list<double> my_list2({9,8,7,6.2});
     cout<<"List 2: ";
     for(auto x : my_list2) cout<<x<<" ";
     cout<<endl;
     
-    //merge
     my_list1.sort();
     my_list2.sort();
     my_list1.merge(my_list2);
+    cout<<"List1: ";
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
+    cout<<"List2: ";
     for(auto x : my_list2) cout<<x<<" "; //empty now
     cout<<endl;
 
     //splice
     srand(time(0));
-    for(int i = 0; i < 5; i++) my_list2.insert(my_list2.end(),rand() % 200 - 100);
+    for(int i = 0; i < 5; i++) my_list2.insert(my_list2.end(),rand()%200 -100);
     for(auto x : my_list2) cout<<x<<" "; 
     cout<<endl;
     
-    my_list1.splice ( my_list1.begin(), my_list2);
+    my_list1.splice(++my_list1.begin(), my_list2);
     for(auto x : my_list1) cout<<x<<" ";
     cout<<endl;
     for(auto x : my_list2) cout<<x<<" "; //empty now
@@ -132,34 +141,44 @@ void test_list()
 ///////////////////////////////////////////////////////////////////////////////
 void test_unordered_maps()
 {
-    unordered_map<int, string> my_map1;
-    my_map1[1]="data1";
-    my_map1[2]="data2";
-    my_map1[3]="data1";
-    my_map1[1]="data3"; //rewrites first assignment, all keys unique
-    my_map1[4]="data4";
+    unordered_map<string,int> my_map1;
+    my_map1["data1"]=1;
+    my_map1["data3"]=5;
+    my_map1["data2"]=1;
+    my_map1["data1"]=7; //rewrites first assignment, all keys unique
+
+     unordered_map<string,int>::iterator itr;
+    
+    for (itr = my_map1.begin(); itr != my_map1.end(); itr++)
+        cout<<itr->first<<" "<<itr->second<<"; ";
+    cout<<"printed with iterators"<<endl;
 
     for(auto x : my_map1)
         cout<<x.first<<" "<<x.second<<";";
-
     cout<<endl;
-    auto search1 = my_map1.find(1);
+
+    auto search1 = my_map1.find("data1");
     
     if(search1 != my_map1.end())
         cout << "Found " << search1->first << " " << search1->second << endl;
     else
         cout<<"Not found"<<endl;
 
-    auto search2 = my_map1.find(7);
+    auto search2 = my_map1.find("data7");
     if(search2 != my_map1.end())
         cout << "Found " << search2->first << " " << search2->second << endl;
     else
         cout<<"Not found"<<endl; 
 
+    my_map1.erase(search1);
+
+    for(auto x : my_map1)
+        cout<<x.first<<" "<<x.second<<";";
+    cout<<endl;   
 }
 
 int main()
 {
-   test_list();
+   test_unordered_maps();
    return 0;
 }
