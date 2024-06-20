@@ -23,8 +23,11 @@ void save_page(const string &url, int second_param)
  
 int main() 
 {
+    cout<<"num of cores: "<<thread::hardware_concurrency()<<endl;
     thread t1(save_page, "http://foo", 2);
     thread t2(save_page, "http://bar",1);
+    cout<<"yo: "<<t1.native_handle()<<endl;
+    cout<<"yo2: "<<t1.hardware_concurrency()<<endl;
     t1.join();
     t2.join();
  
