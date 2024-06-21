@@ -36,15 +36,17 @@ void test_unique_ptrs()
     // move works
     unique_ptr<array<string,2>> test_arr_ptr2;
     test_arr_ptr2=move(test_arr_ptr);
-    // cout<<test_arr_ptr->at(0)<<" "<<test_arr_ptr->at(1)<<endl; // seg fault
+    //cout<<test_arr_ptr->at(0)<<" "<<test_arr_ptr->at(1)<<endl; // seg fault
     cout<<test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1)<<endl;
     test_arr_ptr=move(test_arr_ptr2);
     test_arr_ptr2=make_unique<array<string,2>>(array<string,2>({"t1","t2"}));
     cout<<test_arr_ptr2->at(0)<<" "<<test_arr_ptr2->at(1)<<endl;
 
 
-    //cant do cause copy constructor not allowed
+    //not allowed to sert unique ptrs to stack variables
     //unique_ptr<array<string,2>> test_arr_ptr = &test_arr;
+    
+    //cant do cause copy constructor not allowed
     //unique_ptr<array<string,2>> test_arr_ptr2 = test_arr_ptr;
 
     array<string,2> *p = new array<string,2>();
@@ -53,6 +55,7 @@ void test_unique_ptrs()
     //unique pointers doesnt give you access via square brackets
     //test_arr_ptr[0][0]="test3";   
     (*test_arr_ptr)[0]="test3";
+    test_arr_ptr2->at(0)="test3";
     cout<<(*test_arr_ptr)[0]<<" not same as: "<<test_arr[0]<<endl;
 
     //use at function to avoid confusion with dereferencing unique pointers 
@@ -60,9 +63,9 @@ void test_unique_ptrs()
 
 
     //syntax for creating arrays of objects on heap 
-    //like in project 1: array<Object,2> sequence_= new array<Object,2>[size_];
+    //like in project 1: array<Object,2>* sequence_= new array<Object,2>[size_];
     unique_ptr<array<int, 3>[]> arr2 = make_unique<array<int,3>[]>(3);
-    unique_ptr<array<int, 3>[]> arr3(new array<int, 3>[3]);
+    unique_ptr<array<int, 3>[]> arr3(new array<int, 3>[3]);//in general dont do this
     arr2[0]={1,11,111};
     arr2[1]={1,2,3};
     arr2[2]={7,7,7};
@@ -100,6 +103,7 @@ void test_shared_ptrs()
     obj2->print();
     cout<<endl;
 
+    //shared_ptr<Temp>=obj1;
     // copy constructor works!
     shared_ptr<Temp> obj3 = obj2;
     //do these point at the same ?
