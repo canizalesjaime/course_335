@@ -25,7 +25,7 @@ bool isPalindrome(string s)
     //then you must delete character from first invalid character located at
     //it and onwards
     auto it = remove_if(s.begin(), s.end(), 
-                        [](char const &c){return !isalnum(c);});
+                        [](char &c){return !isalnum(c);});
     s.erase(it, s.end());
     
     string s_pali;
@@ -35,45 +35,59 @@ bool isPalindrome(string s)
 }
 
 
-void tempFunc(int value)
+int func(string value)
 {
-    cout<<"Hi: "<<value<<" ";
+    cout<<"Hi: "<<value<<endl;
+    return 8;
 }
 
 
-void tempFunc2(string value)
+void func(int value)
 {
-    cout<<"Hi: "<<value<<endl;
+    cout<<"Hello: "<<value<<" ";
+}
+
+
+void func2(int value)
+{
+    cout<<"Howdy: "<<value<<" ";
 }
 
 
 int main()
 {
-    typedef void(*func)(int);
-    func p = tempFunc;
-    void(*tempFunc2Ptr)(string) = tempFunc2;
-    cout<<"Here: ";
+    //return type - (pointer name) - (list of types of input parameter)
+    int(*func_ptr)(string) = func; 
+    cout<<func_ptr("sup")<<endl; 
+    cout<<func("sup")<<endl;
+
+    typedef void(*func_ptr2)(int);
+    // typedef int jaime;
+    // int x = 7;
+    // jaime y = 7;
+    // cout<<y;
+    func_ptr2 p = func;
+    cout<<endl;
     p(3);
-    tempFunc2Ptr("sup");
  
     vector<int> values({7,4,8, 10, 81, 3});
     string x = "Hello: ";
-
     // ) mutable { modify capture variables.pass by copy =, pass by reference &
-    auto lambda = [&x](int value){cout<<x<<value<<" ";};
+    auto lambda = [&x](int value){cout<<x<<value<<" "; };
     ForEach(values,lambda);
     cout<<endl;
-    ForEach(values, tempFunc);
+    ForEach(values, func2);
     cout<<endl;
 
     cout<<isPalindrome("Apple-Sauce")<<endl;
     cout<<isPalindrome("Race-c-ar-")<<endl;
+    cout<<isPalindrome("bob")<<endl;
+    cout<<isPalindrome("app");
 
-    sort(values.begin(), values.end());
+    sort(values.begin(), values.end()); //by default sorts in ascending
     x="";
     ForEach(values,lambda);
     cout<<endl;
-
     sort(values.begin(),values.end(),[](int a, int b){return a > b;});
     ForEach(values,lambda);
     return 0;
